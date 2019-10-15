@@ -1,0 +1,123 @@
+#include "Pch.h"
+#include <string>
+#include <iostream>
+#include <fstream>
+
+int main()
+{
+	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Window lol", sf::Style::Fullscreen);
+	// Entity list, storing references to all the game objects. It needs to store references, when it was storing Entities, polymorphism was lost
+	std::vector<Entity *> entities;
+	sf::Clock deltaTimeClock;
+
+	{
+		std::ifstream fin;
+		fin.open("../AssetConfig.txt");
+
+		if (!fin.fail())
+		{
+			std::string directory = "../";
+
+			while (!fin.eof())
+			{
+				char op; // operator character
+				fin >> op;
+				switch (op)
+				{
+				case '@': // enter folder operator
+				{
+					std::string folder;
+					fin >> folder;
+					directory += folder + "/";
+					std::cout << "Current load path: " << directory << "\n";
+					break;
+				}
+
+				case '+': // add asset operator
+				{
+					char type; // what type of asset to add to the project
+					std::string filename;
+					fin >> type;
+					fin >> filename;
+					switch (type)
+					{
+					case 'i': // image type
+						Scene::addTexture(directory + filename);
+						break;
+
+					case 'f': // font type
+
+						break;
+					}
+					std::cout << "Loading asset: " << directory << filename << "\n";
+					break;
+				}
+
+				case '^': // up/exit folder operator
+					directory.pop_back();
+					while (directory.back() != '/')
+					{
+						directory.pop_back();
+					}
+					std::cout << "Current load path: " << directory << "\n";
+					break;
+				}
+			}
+		}
+		else
+		{
+			std::cout << "Failed to find assets\n\n";
+		}
+	}
+
+	sf::Font arialFont;
+	arialFont.loadFromFile("../Assets/Fonts/arial.ttf");
+	sf::Text debugText("", arialFont);
+
+	// This should also be changed at some point, to load entities from a scene file. later :)
+	Scene gameScene;
+	gameScene.addEntity(new Enemy(300.0f, 300.0f, Scene::getTexture(2)));
+	gameScene.addEntity(new Player(600.0f, 300.0f, Scene::getTexture(0)));
+	gameScene.addEntity(new Enemy(900.0f, 300.0f, Scene::getTexture(2)));
+
+	std::cout << "Running game\n\n";
+
+	// Game loop
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.key.code == sf::Keyboard::Escape)
+				window.close();
+		}
+
+		// deltaTime is used to adjust movement based on how long the frame takes to process
+		// This ensures things move at a constant speed, independent from framerate
+		float deltaTime = deltaTimeClock.getElapsedTime().asSeconds();
+		deltaTimeClock.restart();
+
+		// update() loop - update all entities
+		gameScene.update(deltaTime);
+
+		// Collided() loop - check collisions between all entities
+		gameScene.checkCollision();
+
+		// Clear window first, otherwise the last frame won't be removed from the window
+		window.clear();
+
+		// draw() loop - draw all entities
+		// It's safe to assume we won't be creating or destroying anything in draw(), so we can store the size to avoid calculating it every iteration
+		gameScene.draw(window);
+		debugText.setString("Approx FPS: " + std::to_string(1/deltaTime) + "\nEntity count: " + std::to_string(gameScene.entityCount()));
+		window.draw(debugText);
+		// Actually display what's been drawn
+		window.display();
+	}
+
+	window.close();
+
+	Scene::destroyTextures();
+
+	return 0;
+}

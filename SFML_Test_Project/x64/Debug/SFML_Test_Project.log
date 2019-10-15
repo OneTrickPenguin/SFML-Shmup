@@ -1,0 +1,9 @@
+﻿  Entity.cpp
+d:\users\tom\documents\uni documents\level 5\p4g\sfml test project\sfml_test_project\pch.h(4): fatal error C1083: Cannot open include file: 'SFML/Audio.hpp': No such file or directory
+  Pch.cpp
+d:\users\tom\documents\uni documents\level 5\p4g\sfml test project\sfml_test_project\pch.h(4): fatal error C1083: Cannot open include file: 'SFML/Audio.hpp': No such file or directory
+  Player.cpp
+d:\users\tom\documents\uni documents\level 5\p4g\sfml test project\sfml_test_project\pch.h(4): fatal error C1083: Cannot open include file: 'SFML/Audio.hpp': No such file or directory
+  Source.cpp
+d:\users\tom\documents\uni documents\level 5\p4g\sfml test project\sfml_test_project\pch.h(4): fatal error C1083: Cannot open include file: 'SFML/Audio.hpp': No such file or directory
+  Generating Code...

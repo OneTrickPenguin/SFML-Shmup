@@ -1,0 +1,13 @@
+﻿  Pch.cpp
+c:\users\b8000752\downloads\sfml test project\sfml_test_project\entity.h(25): warning C4091: 'static ': ignored on left of 'Entity::Layers' when no variable is declared
+  Bullet.cpp
+  Enemy.cpp
+  Entity.cpp
+  Player.cpp
+  Scene.cpp
+c:\users\b8000752\downloads\sfml test project\sfml_test_project\scene.cpp(45): warning C4018: '<': signed/unsigned mismatch
+c:\users\b8000752\downloads\sfml test project\sfml_test_project\scene.cpp(66): warning C4018: '<': signed/unsigned mismatch
+c:\users\b8000752\downloads\sfml test project\sfml_test_project\scene.cpp(72): warning C4018: '<': signed/unsigned mismatch
+  Source.cpp
+  Generating Code...
+  SFML_Test_Project.vcxproj -> C:\Users\b8000752\Downloads\SFML Test Project\Debug\SFML_Test_Project.exe
