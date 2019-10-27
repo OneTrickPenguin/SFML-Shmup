@@ -17,6 +17,7 @@ int main()
 		if (!fin.fail())
 		{
 			std::string directory = "../";
+			bool loaded_texture_page = false;
 
 			while (!fin.eof())
 			{
@@ -48,6 +49,14 @@ int main()
 					case 'f': // font type
 
 						break;
+
+					case 'p': // texture page
+						if (!loaded_texture_page)
+						{
+							Entity::loadTexturePage(directory + filename);
+							loaded_texture_page = true;
+						}
+						break;
 					}
 					std::cout << "Loading asset: " << directory << filename << "\n";
 					break;
@@ -76,9 +85,9 @@ int main()
 
 	// This should also be changed at some point, to load entities from a scene file. later :)
 	Scene gameScene;
-	gameScene.addEntity(new Enemy(300.0f, 300.0f, Scene::getTexture(2)));
-	gameScene.addEntity(new Player(600.0f, 300.0f, Scene::getTexture(0)));
-	gameScene.addEntity(new Enemy(900.0f, 300.0f, Scene::getTexture(2)));
+	gameScene.addEntity(new Enemy(300.0f, 300.0f));
+	gameScene.addEntity(new Player(600.0f, 300.0f));
+	gameScene.addEntity(new Enemy(900.0f, 300.0f));
 
 	std::cout << "Running game\n\n";
 

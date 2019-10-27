@@ -12,7 +12,7 @@ private:
 	sf::Vector2f last_pos;
 	sf::Vector2f facing;
 public:
-	Player(const float x, const float y, const sf::Texture* texture);
+	Player(const float x, const float y);
 	
 	void update(const float deltaTime);
 	void collided(Entity& other);

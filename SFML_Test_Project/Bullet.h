@@ -9,7 +9,7 @@ private:
 	sf::Vector2f vel;
 	float life;
 public:
-	Bullet(const float x, const float y, const sf::Texture* texture, const float lifetime, const float dx = 0, const float dy = 0);
+	Bullet(const float x, const float y, const float lifetime, const float dx = 0, const float dy = 0);
 
 	void update(const float deltaTime);
 	void collided(Entity& other);

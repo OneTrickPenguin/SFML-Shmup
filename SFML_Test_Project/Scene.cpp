@@ -2,19 +2,19 @@
 #include "Scene.h"
 #include <string>
 
-std::vector<sf::Texture*> Scene::textures;
+std::vector<sf::Texture> Scene::textures;
 
 Scene::Scene()
 {
 }
 
-void Scene::addTexture(const std::string& filePath)
+void Scene::addTexture(const std::string& file_path)
 {
-	textures.push_back(new sf::Texture());
-	textures.back()->loadFromFile(filePath);
+	textures.push_back(sf::Texture());
+	textures.back().loadFromFile(file_path);
 }
 
-sf::Texture* Scene::getTexture(const int id)
+sf::Texture& Scene::getTexture(const int id)
 {
 	return textures.at(id);
 }
@@ -24,7 +24,7 @@ void Scene::destroyTextures()
 	int count = textures.size();
 	for (int i = 0; i < count; i++)
 	{
-		delete textures[i];
+		//delete textures[i];
 	}
 }
 

@@ -2,10 +2,11 @@
 #include "Player.h"
 #include "Bullet.h"
 
-Player::Player(const float x, const float y, const sf::Texture *texture) : Entity(x, y, texture)
+Player::Player(const float x, const float y) : Entity(x, y)
 {
 	bbox_origin = sf::Vector2f(64.0f, 64.0f);
 	spr.setOrigin(64.0f, 64.0f);
+	spr.setTexture(Scene::getTexture(0), true);
 
 	facing = sf::Vector2f(-1.0f, 0.0f);
 }
@@ -61,7 +62,7 @@ void Player::update(const float deltaTime)
 		{
 			sf::Vector2f bulletVel = facing * bulletSpeed;
 			sf::Vector2f p = getPosition();
-			getParentScene()->addEntity(new Bullet(p.x, p.y, Scene::getTexture(1), 1.5f, bulletVel.x, bulletVel.y));
+			getParentScene()->addEntity(new Bullet(p.x, p.y, 1.5f, bulletVel.x, bulletVel.y));
 		}
 		shooting = true;
 	}

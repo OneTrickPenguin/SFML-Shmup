@@ -8,9 +8,15 @@ private:
 	sf::Rect<float> bbox;
 	bool alive = true;
 	Scene* parentScene;
+	static sf::Texture texture_page;
 protected:
-	sf::Sprite spr;
+	sf::Sprite spr = sf::Sprite(texture_page);
 	sf::Vector2f bbox_origin;
+
+	float animation_speed = 0;
+	float animation_progress = 0;
+	int animation_frame = 0;
+	int animation_total_frames = 1;
 
 	void setBBoxSize(const float width, const float height);
 	void updateSprite();
@@ -41,16 +47,19 @@ public:
 	float getBBoxBottom() const;
 	sf::Rect<float> getBBoxBounds() const;
 
-	Entity(const float x, const float y, const sf::Texture* texture);
+	Entity(const float x, const float y);
 
 	void assignParentScene(Scene* scene);
 	Scene* getParentScene() const;
 
-	virtual void update(const float deltaTime) = 0;
+	virtual void update(const float deltaTime);
 	virtual void draw(sf::RenderTarget& renderTarget, const sf::RenderStates& renderStates = sf::RenderStates::Default) const;
 	virtual void collided(Entity& other) = 0;
 	virtual int layersSelf() const = 0;
 	virtual int layersOther() const = 0;
+
+	static void loadTexturePage(const std::string& file_path);
+	static sf::Texture* getTexturePage();
 
 	~Entity();
 };

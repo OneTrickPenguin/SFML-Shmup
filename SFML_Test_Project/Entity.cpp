@@ -1,20 +1,15 @@
 #include "Pch.h"
 #include "Entity.h"
 
-//sf::Vector2f pos;
-//sf::Vector2f vel;
+sf::Texture Entity::texture_page;
 
-Entity::Entity(const float x, const float y, const sf::Texture *texture)
+Entity::Entity(const float x, const float y)
 {
 	bbox.width = 128.0f;
 	bbox.height = 128.0f;
 	bbox_origin = sf::Vector2f();
 
 	setPosition(x, y);
-
-	spr.setTexture(*texture);
-
-	//init();
 }
 
 bool Entity::isAlive() const
@@ -98,6 +93,27 @@ Scene* Entity::getParentScene() const
 	return parentScene;
 }
 
+void Entity::update(const float deltaTime)
+{
+	animation_progress += (animation_speed * deltaTime);
+	if (animation_progress >= 1)
+	{
+		animation_progress--;
+		animation_frame++;
+
+		sf::IntRect textureRect(spr.getTextureRect());
+		textureRect.top += textureRect.width;
+
+		if (animation_frame >= animation_total_frames)
+		{
+			animation_frame = 0;
+			textureRect.top -= (textureRect.width * animation_total_frames);
+		}
+
+		spr.setTextureRect(textureRect);
+	}
+}
+
 void Entity::draw(sf::RenderTarget& target, const sf::RenderStates& states) const
 {
 	/*
@@ -107,6 +123,16 @@ void Entity::draw(sf::RenderTarget& target, const sf::RenderStates& states) cons
 	target.draw(rect, states);/**/
 
 	target.draw(spr, states);
+}
+
+void Entity::loadTexturePage(const std::string & file_path)
+{
+	texture_page.loadFromFile(file_path);
+}
+
+sf::Texture* Entity::getTexturePage()
+{
+	return &texture_page;
 }
 
 Entity::~Entity()

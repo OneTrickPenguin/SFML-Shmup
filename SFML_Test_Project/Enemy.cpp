@@ -2,9 +2,9 @@
 #include "Enemy.h"
 
 
-Enemy::Enemy(const float x, const float y, const sf::Texture* texture) : Entity(x, y, texture)
+Enemy::Enemy(const float x, const float y) : Entity(x, y)
 {
-
+	spr.setTexture(Scene::getTexture(2), true);
 }
 
 void Enemy::update(const float deltaTime)
