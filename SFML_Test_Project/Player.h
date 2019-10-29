@@ -7,7 +7,7 @@ private:
 	const static int collides = (1 << wall) | (1 << enemy);
 
 	float moveSpeed = 512.0f; // pixels per second
-	float bulletSpeed = 768.0f; // pixels per second
+	float bulletSpeed = 384.0f; // pixels per second
 	bool shooting = false;
 	sf::Vector2f last_pos;
 	sf::Vector2f facing;

@@ -102,12 +102,12 @@ void Entity::update(const float deltaTime)
 		animation_frame++;
 
 		sf::IntRect textureRect(spr.getTextureRect());
-		textureRect.top += textureRect.width;
+		textureRect.top += textureRect.height;
 
 		if (animation_frame >= animation_total_frames)
 		{
 			animation_frame = 0;
-			textureRect.top -= (textureRect.width * animation_total_frames);
+			textureRect.top -= (textureRect.height * animation_total_frames);
 		}
 
 		spr.setTextureRect(textureRect);

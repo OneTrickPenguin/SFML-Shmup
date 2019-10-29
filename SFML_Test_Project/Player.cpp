@@ -4,9 +4,11 @@
 
 Player::Player(const float x, const float y) : Entity(x, y)
 {
-	bbox_origin = sf::Vector2f(64.0f, 64.0f);
-	spr.setOrigin(64.0f, 64.0f);
-	spr.setTexture(Scene::getTexture(0), true);
+	bbox_origin = sf::Vector2f(64.0f, 22.0f);
+	setBBoxSize(128.0f, 48.0f);
+	spr.setOrigin(96.0f, 32.0f);
+	//spr.setTexture(Scene::getTexture(0), true);
+	spr.setTextureRect(sf::IntRect(64, 0, 192, 64));
 
 	facing = sf::Vector2f(-1.0f, 0.0f);
 }
@@ -60,7 +62,7 @@ void Player::update(const float deltaTime)
 	{
 		if (!shooting)
 		{
-			sf::Vector2f bulletVel = facing * bulletSpeed;
+			sf::Vector2f bulletVel = sf::Vector2f(bulletSpeed, 0.0f);
 			sf::Vector2f p = getPosition();
 			getParentScene()->addEntity(new Bullet(p.x, p.y, 1.5f, bulletVel.x, bulletVel.y));
 		}
