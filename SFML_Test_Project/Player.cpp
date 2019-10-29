@@ -63,7 +63,8 @@ void Player::update(const float deltaTime)
 		if (!shooting)
 		{
 			sf::Vector2f bulletVel = sf::Vector2f(bulletSpeed, 0.0f);
-			sf::Vector2f p = getPosition() + sf::Vector2f(0, -18);
+			sf::Vector2f p = getPosition() + sf::Vector2f(47 + last_used_cannon * 45, 12); //(47 or 92, 12)
+			last_used_cannon = !last_used_cannon;
 			getParentScene()->addEntity(new Bullet(p.x, p.y, 1.5f, bulletVel.x, bulletVel.y));
 		}
 		shooting = true;

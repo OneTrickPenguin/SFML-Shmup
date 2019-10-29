@@ -19,6 +19,7 @@ protected:
 	float animation_progress = 0;
 	const int animation_total_frames = 1;
 	int animation_frame = 0;
+	const bool animation_repeats = true;
 
 	void setBBoxSize(const float width, const float height);
 	void updateSprite();
@@ -33,7 +34,7 @@ public:
 	};
 
 	Entity(const float x, const float y);
-	Entity(const float x, const float y, const int anim_speed, const int anim_frames);
+	Entity(const float x, const float y, const int anim_speed, const int anim_frames, const bool anim_repeat = true);
 
 	bool isAlive() const;
 	void die();

@@ -1,7 +1,7 @@
 #include "Pch.h"
 #include "Bullet.h"
 
-Bullet::Bullet(const float x, const float y, const float lifetime, const float dx, const float dy) : Entity(x, y, 18, 6)
+Bullet::Bullet(const float x, const float y, const float lifetime, const float dx, const float dy) : Entity(x, y, 30, 6, false)
 {
 	life = lifetime;
 	vel = sf::Vector2f(dx, dy);
@@ -23,7 +23,8 @@ Bullet::Bullet(const float x, const float y, const float lifetime, const float d
 	animation_total_frames = 4;/**/
 
 	spr.setOrigin(8.0f, 5.0f);
-	spr.setTextureRect(sf::IntRect(64, 64, 16, 10));
+	//spr.setTextureRect(sf::IntRect(64, 64, 16, 10));
+	spr.setTextureRect(sf::IntRect(80, 64, 64, 7));
 
 	setBBoxSize(14.0f, 14.0f);
 

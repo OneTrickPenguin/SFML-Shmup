@@ -1,14 +1,3 @@
-﻿  Pch.cpp
-c:\users\b8000752\documents\shmup\sfml-shmup\sfml_test_project\entity.h(33): warning C4091: 'static ': ignored on left of 'Entity::Layers' when no variable is declared
-  Bullet.cpp
-  Enemy.cpp
-  Entity.cpp
+﻿  Entity.cpp
 c:\users\b8000752\documents\shmup\sfml-shmup\sfml_test_project\entity.cpp(15): warning C4244: 'initializing': conversion from 'const int' to 'const float', possible loss of data
-  Player.cpp
-  Scene.cpp
-c:\users\b8000752\documents\shmup\sfml-shmup\sfml_test_project\scene.cpp(45): warning C4018: '<': signed/unsigned mismatch
-c:\users\b8000752\documents\shmup\sfml-shmup\sfml_test_project\scene.cpp(66): warning C4018: '<': signed/unsigned mismatch
-c:\users\b8000752\documents\shmup\sfml-shmup\sfml_test_project\scene.cpp(72): warning C4018: '<': signed/unsigned mismatch
-  Source.cpp
-  Generating Code...
   SFML_Test_Project.vcxproj -> C:\Users\b8000752\Documents\shmup\SFML-Shmup\Debug\SFML_Test_Project.exe

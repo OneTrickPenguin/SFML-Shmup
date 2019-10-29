@@ -7,7 +7,8 @@ private:
 	const static int collides = (1 << wall) | (1 << enemy);
 
 	float moveSpeed = 512.0f; // pixels per second
-	float bulletSpeed = 384.0f; // pixels per second
+	float bulletSpeed = 600.0f; // pixels per second
+	bool last_used_cannon = true; // true = left cannon (x = 92), false = right cannon (x = 47)
 	bool shooting = false;
 	sf::Vector2f last_pos;
 	sf::Vector2f facing;

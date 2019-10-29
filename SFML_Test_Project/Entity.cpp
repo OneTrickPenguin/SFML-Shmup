@@ -5,14 +5,14 @@ sf::Texture Entity::texture_page;
 
 Entity::Entity(const float x, const float y)
 {
-	//bbox.width = 128.0f;
-	//bbox.height = 128.0f;
+	bbox.width = 128.0f;
+	bbox.height = 128.0f;
 	bbox_origin = sf::Vector2f();
 	setPosition(x, y);
 }
 
-Entity::Entity(const float x, const float y, const int anim_speed, const int anim_frames) : 
-	animation_speed(anim_speed), animation_total_frames(anim_frames)
+Entity::Entity(const float x, const float y, const int anim_speed, const int anim_frames, const bool anim_repeat) : 
+	animation_speed(anim_speed), animation_total_frames(anim_frames), animation_repeats(anim_repeat)
 {
 	bbox_origin = sf::Vector2f();
 	setPosition(x, y);
@@ -101,22 +101,33 @@ Scene* Entity::getParentScene() const
 
 void Entity::update(const float deltaTime)
 {
-	animation_progress += (animation_speed * deltaTime);
-	if (animation_progress >= 1)
+	if (animation_frame >= 0)
 	{
-		animation_progress--;
-		animation_frame++;
-
-		sf::IntRect textureRect(spr.getTextureRect());
-		textureRect.top += textureRect.height;
-
-		if (animation_frame >= animation_total_frames)
+		animation_progress += (animation_speed * deltaTime);
+		if (animation_progress >= 1)
 		{
-			animation_frame = 0;
-			textureRect.top -= (textureRect.height * animation_total_frames);
-		}
+			animation_progress--;
+			animation_frame++;
 
-		spr.setTextureRect(textureRect);
+			sf::IntRect textureRect(spr.getTextureRect());
+			textureRect.top += textureRect.height;
+
+			if (animation_frame >= animation_total_frames)
+			{
+				if (animation_repeats)
+				{
+					animation_frame = 0;
+					textureRect.top -= (textureRect.height * animation_total_frames);
+				}
+				else
+				{
+					animation_frame = -1;
+					textureRect.top -= textureRect.height;
+				}
+			}
+
+			spr.setTextureRect(textureRect);
+		}
 	}
 }
 
