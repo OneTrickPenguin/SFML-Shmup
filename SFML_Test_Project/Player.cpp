@@ -44,18 +44,18 @@ void Player::update(const float deltaTime)
 	{
 		movePosition(-getBBoxLeft(), 0);
 	}
-	else if (getBBoxRight() > 1920)
+	else if (getBBoxRight() > screen_bounds.x)
 	{
-		movePosition(1920 - getBBoxRight(), 0);
+		movePosition(screen_bounds.x - getBBoxRight(), 0);
 	}
 
 	if (getBBoxTop() < 0)
 	{
 		movePosition(0, -getBBoxTop());
 	}
-	else if (getBBoxBottom() > 1080)
+	else if (getBBoxBottom() > screen_bounds.y)
 	{
-		movePosition(0, 1080 - getBBoxBottom());
+		movePosition(0, screen_bounds.y - getBBoxBottom());
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
@@ -63,7 +63,7 @@ void Player::update(const float deltaTime)
 		if (!shooting)
 		{
 			sf::Vector2f bulletVel = sf::Vector2f(bulletSpeed, 0.0f);
-			sf::Vector2f p = getPosition();
+			sf::Vector2f p = getPosition() + sf::Vector2f(0, -18);
 			getParentScene()->addEntity(new Bullet(p.x, p.y, 1.5f, bulletVel.x, bulletVel.y));
 		}
 		shooting = true;

@@ -10,6 +10,8 @@ private:
 	Scene* parentScene;
 	static sf::Texture texture_page;
 protected:
+	const sf::Vector2f screen_bounds = sf::Vector2f(960.0f, 540.0f);
+
 	sf::Sprite spr = sf::Sprite(texture_page);
 	sf::Vector2f bbox_origin;
 

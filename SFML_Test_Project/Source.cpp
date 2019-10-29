@@ -6,6 +6,10 @@
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Window lol", sf::Style::Fullscreen);
+	sf::RenderTexture game_render;
+	game_render.create(960, 540);
+	sf::Sprite game_sprite(game_render.getTexture());
+	game_sprite.setScale(2, 2);
 	// Entity list, storing references to all the game objects. It needs to store references, when it was storing Entities, polymorphism was lost
 	std::vector<Entity *> entities;
 	sf::Clock deltaTimeClock;
@@ -113,11 +117,15 @@ int main()
 		gameScene.checkCollision();
 
 		// Clear window first, otherwise the last frame won't be removed from the window
+		game_render.clear();
 		window.clear();
 
 		// draw() loop - draw all entities
 		// It's safe to assume we won't be creating or destroying anything in draw(), so we can store the size to avoid calculating it every iteration
-		gameScene.draw(window);
+		//gameScene.draw(window);
+		gameScene.draw(game_render);
+		game_render.display();
+		window.draw(game_sprite);
 		debugText.setString("Approx FPS: " + std::to_string(1/deltaTime) + "\nEntity count: " + std::to_string(gameScene.entityCount()));
 		window.draw(debugText);
 		// Actually display what's been drawn
