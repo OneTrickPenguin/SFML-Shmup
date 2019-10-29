@@ -1,7 +1,7 @@
 #include "Pch.h"
 #include "Bullet.h"
 
-Bullet::Bullet(const float x, const float y, const float lifetime, const float dx, const float dy) : Entity(x, y)
+Bullet::Bullet(const float x, const float y, const float lifetime, const float dx, const float dy) : Entity(x, y, 18, 6)
 {
 	life = lifetime;
 	vel = sf::Vector2f(dx, dy);
@@ -27,8 +27,8 @@ Bullet::Bullet(const float x, const float y, const float lifetime, const float d
 
 	setBBoxSize(14.0f, 14.0f);
 
-	animation_speed = 18;
-	animation_total_frames = 6;
+	//animation_speed = 18;
+	//animation_total_frames = 6;
 }
 
 void Bullet::update(const float deltaTime)

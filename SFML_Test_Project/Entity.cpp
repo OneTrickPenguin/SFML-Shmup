@@ -5,10 +5,16 @@ sf::Texture Entity::texture_page;
 
 Entity::Entity(const float x, const float y)
 {
-	bbox.width = 128.0f;
-	bbox.height = 128.0f;
+	//bbox.width = 128.0f;
+	//bbox.height = 128.0f;
 	bbox_origin = sf::Vector2f();
+	setPosition(x, y);
+}
 
+Entity::Entity(const float x, const float y, const int anim_speed, const int anim_frames) : 
+	animation_speed(anim_speed), animation_total_frames(anim_frames)
+{
+	bbox_origin = sf::Vector2f();
 	setPosition(x, y);
 }
 

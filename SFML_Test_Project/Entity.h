@@ -15,10 +15,10 @@ protected:
 	sf::Sprite spr = sf::Sprite(texture_page);
 	sf::Vector2f bbox_origin;
 
-	float animation_speed = 0;
+	const float animation_speed = 0;
 	float animation_progress = 0;
+	const int animation_total_frames = 1;
 	int animation_frame = 0;
-	int animation_total_frames = 1;
 
 	void setBBoxSize(const float width, const float height);
 	void updateSprite();
@@ -31,6 +31,9 @@ public:
 		enemy,
 		bullet
 	};
+
+	Entity(const float x, const float y);
+	Entity(const float x, const float y, const int anim_speed, const int anim_frames);
 
 	bool isAlive() const;
 	void die();
@@ -48,8 +51,6 @@ public:
 	float getBBoxTop() const;
 	float getBBoxBottom() const;
 	sf::Rect<float> getBBoxBounds() const;
-
-	Entity(const float x, const float y);
 
 	void assignParentScene(Scene* scene);
 	Scene* getParentScene() const;

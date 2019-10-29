@@ -3,6 +3,7 @@ c:\users\b8000752\documents\shmup\sfml-shmup\sfml_test_project\entity.h(33): war
   Bullet.cpp
   Enemy.cpp
   Entity.cpp
+c:\users\b8000752\documents\shmup\sfml-shmup\sfml_test_project\entity.cpp(15): warning C4244: 'initializing': conversion from 'const int' to 'const float', possible loss of data
   Player.cpp
   Scene.cpp
 c:\users\b8000752\documents\shmup\sfml-shmup\sfml_test_project\scene.cpp(45): warning C4018: '<': signed/unsigned mismatch
