@@ -1,4 +1,5 @@
 #include "Pch.h"
+#include "Pilot.h"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -92,6 +93,7 @@ int main()
 	gameScene.addEntity(new Enemy(300.0f, 300.0f));
 	gameScene.addEntity(new Player(600.0f, 300.0f));
 	gameScene.addEntity(new Enemy(900.0f, 300.0f));
+	gameScene.addEntity(new Pilot(1200, 300.0f));
 
 	std::cout << "Running game\n\n";
 
