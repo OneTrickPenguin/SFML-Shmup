@@ -1,3 +1,2 @@
-﻿  Entity.cpp
-c:\users\b8000752\documents\shmup\sfml-shmup\sfml_test_project\entity.cpp(15): warning C4244: 'initializing': conversion from 'const int' to 'const float', possible loss of data
-  SFML_Test_Project.vcxproj -> C:\Users\b8000752\Documents\shmup\SFML-Shmup\Debug\SFML_Test_Project.exe
+﻿  Bullet.cpp
+  SFML_Test_Project.vcxproj -> D:\Users\Tom\Documents\University\Level5\P4G\SFML-Test-Project\Debug\SFML_Test_Project.exe

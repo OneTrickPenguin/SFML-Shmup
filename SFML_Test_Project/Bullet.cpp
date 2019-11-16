@@ -24,7 +24,7 @@ Bullet::Bullet(const float x, const float y, const float lifetime, const float d
 
 	spr.setOrigin(8.0f, 5.0f);
 	//spr.setTextureRect(sf::IntRect(64, 64, 16, 10));
-	spr.setTextureRect(sf::IntRect(80, 64, 64, 7));
+	spr.setTextureRect(sf::IntRect(208, 0, 64, 7));
 
 	setBBoxSize(14.0f, 14.0f);
 

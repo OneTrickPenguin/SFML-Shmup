@@ -8,7 +8,7 @@ Player::Player(const float x, const float y) : Entity(x, y)
 	setBBoxSize(128.0f, 48.0f);
 	spr.setOrigin(96.0f, 32.0f);
 	//spr.setTexture(Scene::getTexture(0), true);
-	spr.setTextureRect(sf::IntRect(64, 0, 192, 64));
+	spr.setTextureRect(sf::IntRect(0, 0, 192, 64));
 
 	facing = sf::Vector2f(-1.0f, 0.0f);
 }
