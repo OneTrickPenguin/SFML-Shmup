@@ -6,8 +6,10 @@ private:
 	const static int layers = (1 << player);
 	const static int collides = (1 << wall) | (1 << enemy);
 
-	float moveSpeed = 512.0f; // pixels per second
-	float bulletSpeed = 600.0f; // pixels per second
+	float moveSpeed = 500.0f; // pixels per second
+	float bulletSpeed = 800.0f; // pixels per second
+	float cannon_flash_timer = 0.0f;
+	const float cannon_flash_cooldown = 0.12f;
 	bool last_used_cannon = true; // true = left cannon (x = 92), false = right cannon (x = 47)
 	bool shooting = false;
 	sf::Vector2f last_pos;

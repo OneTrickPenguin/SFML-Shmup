@@ -58,13 +58,27 @@ void Player::update(const float deltaTime)
 		movePosition(0, screen_bounds.y - getBBoxBottom());
 	}
 
+	if (cannon_flash_timer > 0)
+	{
+		cannon_flash_timer -= deltaTime;
+		if (cannon_flash_timer <= 0)
+		{
+			cannon_flash_timer = 0.0f;
+			spr.setTextureRect(sf::IntRect(0, 0, 192, 64));
+		}
+	}
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		if (!shooting)
 		{
-			sf::Vector2f bulletVel = sf::Vector2f(bulletSpeed, 0.0f);
-			sf::Vector2f p = getPosition() + sf::Vector2f(47 + last_used_cannon * 45, 12); //(47 or 92, 12)
+			sf::Vector2f bulletVel = sf::Vector2f(bulletSpeed, input.y * 120.0f);
+			sf::Vector2f p = getPosition() + sf::Vector2f(10 + last_used_cannon * 45, 12); //(10 or 55, 12)
+			spr.setTextureRect(sf::IntRect(0, 64 + 64 * last_used_cannon, 192, 64));
 			last_used_cannon = !last_used_cannon;
+
+			cannon_flash_timer = cannon_flash_cooldown;
+
 			getParentScene()->addEntity(new Bullet(p.x, p.y, 1.5f, bulletVel.x, bulletVel.y));
 		}
 		shooting = true;

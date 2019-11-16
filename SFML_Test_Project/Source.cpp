@@ -7,9 +7,9 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Window lol", sf::Style::Fullscreen);
 	sf::RenderTexture game_render;
-	game_render.create(960, 540);
+	game_render.create(1920, 1080);
 	sf::Sprite game_sprite(game_render.getTexture());
-	game_sprite.setScale(2, 2);
+	game_sprite.setScale(1, 1);
 	// Entity list, storing references to all the game objects. It needs to store references, when it was storing Entities, polymorphism was lost
 	std::vector<Entity *> entities;
 	sf::Clock deltaTimeClock;
@@ -102,7 +102,9 @@ int main()
 		while (window.pollEvent(event))
 		{
 			if (event.key.code == sf::Keyboard::Escape)
+			{
 				window.close();
+			}
 		}
 
 		// deltaTime is used to adjust movement based on how long the frame takes to process

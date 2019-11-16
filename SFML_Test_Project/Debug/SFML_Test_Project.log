@@ -1,2 +1,19 @@
-﻿  Bullet.cpp
+﻿  Pch.cpp
+d:\users\tom\documents\university\level5\p4g\sfml-test-project\sfml_test_project\entity.h(34): warning C4091: 'static ': ignored on left of 'Entity::Layers' when no variable is declared
+  Bullet.cpp
+  Enemy.cpp
+  Entity.cpp
+d:\users\tom\documents\university\level5\p4g\sfml-test-project\sfml_test_project\entity.cpp(15): warning C4244: 'initializing': conversion from 'const int' to 'const float', possible loss of data
+  Player.cpp
+d:\users\tom\documents\university\level5\p4g\sfml-test-project\sfml_test_project\player.cpp(76): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  Scene.cpp
+d:\users\tom\documents\university\level5\p4g\sfml-test-project\sfml_test_project\scene.cpp(45): warning C4018: '<': signed/unsigned mismatch
+d:\users\tom\documents\university\level5\p4g\sfml-test-project\sfml_test_project\scene.cpp(66): warning C4018: '<': signed/unsigned mismatch
+d:\users\tom\documents\university\level5\p4g\sfml-test-project\sfml_test_project\scene.cpp(72): warning C4018: '<': signed/unsigned mismatch
+  Source.cpp
+  Generating Code...
   SFML_Test_Project.vcxproj -> D:\Users\Tom\Documents\University\Level5\P4G\SFML-Test-Project\Debug\SFML_Test_Project.exe
