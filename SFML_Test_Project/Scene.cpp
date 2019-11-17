@@ -91,6 +91,7 @@ void Scene::checkCollision()
 			if (!entities[i]->isAlive())
 			{
 				delete entities[i];
+				entities[i] = nullptr;
 				entities.erase(entities.begin() + i);
 				i--;
 			}
@@ -117,6 +118,9 @@ Scene::~Scene()
 	int count = entities.size();
 	for (int i = 0; i < count; i++)
 	{
-		delete entities[i];
+		if (entities[i] == nullptr)
+		{
+			delete entities[i];
+		}
 	}
 }

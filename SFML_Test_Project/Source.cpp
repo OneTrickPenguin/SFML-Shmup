@@ -1,5 +1,6 @@
 #include "Pch.h"
 #include "Pilot.h"
+#include "Ship.h"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -91,9 +92,10 @@ int main()
 	// This should also be changed at some point, to load entities from a scene file. later :)
 	Scene gameScene;
 	gameScene.addEntity(new Enemy(300.0f, 300.0f));
-	gameScene.addEntity(new Player(600.0f, 300.0f));
+	//gameScene.addEntity(new Ship(600.0f, 300.0f));
 	gameScene.addEntity(new Enemy(900.0f, 300.0f));
-	gameScene.addEntity(new Pilot(1200, 300.0f));
+	//gameScene.addEntity(new Pilot(1200, 300.0f));
+	gameScene.addEntity(new Player(600.0f, 600.0f));
 
 	std::cout << "Running game\n\n";
 

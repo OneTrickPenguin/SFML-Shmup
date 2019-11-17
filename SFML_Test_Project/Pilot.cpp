@@ -1,28 +1,60 @@
 #include "Pch.h"
 #include "Pilot.h"
 
-Pilot::Pilot(const float x, const float y) : Entity(x, y)
+//Pilot::Pilot(const float x, const float y) : Entity(x, y)
+//{
+//	spr.setTextureRect(sf::IntRect(192 + 158 * sword_side, 0, 158, 88));
+//}
+
+Pilot::Pilot(const float x, const float y, Player* p) : Entity(x, y), player(p)
 {
 	spr.setTextureRect(sf::IntRect(192 + 158 * sword_side, 0, 158, 88));
 }
 
 void Pilot::update(const float deltaTime)
 {
-	if (sword_pressed)
+	sf::Vector2f input = sf::Vector2f();
+	if (!player->isInShip())
 	{
-		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		input = player->getInput() * max_speed;
+
+		if (sword_pressed)
 		{
-			sword_pressed = false;
+			if (!sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			{
+				sword_pressed = false;
+			}
+		}
+		else if (!sword_buffering)
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			{
+				sword_buffering = true;
+				down_buffering = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+			}
 		}
 	}
-	else if (!sword_buffering)
+
+	if (vel.x != input.x)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		if (vel.x < input.x)
 		{
-			sword_buffering = true;
-			down_buffering = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+			vel.x += acceleration * deltaTime;
+			if (vel.x > input.x)
+			{
+				vel.x = input.x;
+			}
+		}
+		else
+		{
+			vel.x -= acceleration * deltaTime;
+			if (vel.x < input.x)
+			{
+				vel.x = input.x;
+			}
 		}
 	}
+	movePosition(vel * deltaTime);
 
 	if (sword_timer <= 0)
 	{
