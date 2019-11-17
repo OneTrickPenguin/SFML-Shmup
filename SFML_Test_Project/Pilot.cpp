@@ -1,37 +1,47 @@
 #include "Pch.h"
 #include "Pilot.h"
 
-Pilot::Pilot(const float x, const float y) : Entity(x, y, 1, 3, true)
+Pilot::Pilot(const float x, const float y) : Entity(x, y)
 {
 	spr.setTextureRect(sf::IntRect(192 + 158 * sword_side, 0, 158, 88));
 }
 
 void Pilot::update(const float deltaTime)
 {
+	if (sword_pressed)
+	{
+		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			sword_pressed = false;
+		}
+	}
+	else if (!sword_buffering)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			sword_buffering = true;
+			down_buffering = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+		}
+	}
+
 	if (sword_timer <= 0)
 	{
 		// can attack
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		if (sword_buffering)
 		{
-			if (!sword_pressed)
-			{
-				sword_side = !sword_side;
-				sword_timer = sword_cooldown[0] + sword_cooldown[1];
-				sword_pressed = true;
+			sword_side = !sword_side;
+			sword_timer = sword_cooldown[0] + sword_cooldown[1];
+			sword_pressed = true;
+			sword_buffering = false;
 
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-				{
-					spr.setTextureRect(sf::IntRect(192 + 158 * sword_side, 88, 158, 106));
-				}
-				else
-				{
-					spr.setTextureRect(sf::IntRect(192 + 158 * sword_side, 194, 158, 106));
-				}
+			if (down_buffering)
+			{
+				spr.setTextureRect(sf::IntRect(192 + 158 * sword_side, 88, 158, 106));
 			}
-		}
-		else
-		{
-			sword_pressed = false;
+			else
+			{
+				spr.setTextureRect(sf::IntRect(192 + 158 * sword_side, 194, 158, 106));
+			}
 		}
 	}
 	else
