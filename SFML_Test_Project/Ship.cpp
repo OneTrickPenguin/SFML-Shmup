@@ -31,7 +31,7 @@ void Ship::update(const float deltaTime)
 		{
 			if (!shooting)
 			{
-				sf::Vector2f bulletVel = sf::Vector2f(bulletSpeed, input.y * 120.0f);
+				sf::Vector2f bulletVel = sf::Vector2f(bulletSpeed, input.y / 5.0f);
 				sf::Vector2f p = getPosition() + sf::Vector2f(10 + last_used_cannon * 45, 12); //(10 or 55, 12)
 				spr.setTextureRect(sf::IntRect(0, 64 + 64 * last_used_cannon, 192, 64));
 				last_used_cannon = !last_used_cannon;

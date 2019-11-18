@@ -13,7 +13,6 @@ private:
 
 	Ship* ship;
 	Pilot* pilot;
-	bool defined = false;
 
 	const float call_cooldown = 3.0f;
 	float call_timer = 0.0f;

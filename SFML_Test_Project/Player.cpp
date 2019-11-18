@@ -26,13 +26,6 @@ sf::Vector2f Player::getInput()
 void Player::update(const float deltaTime)
 {
 	input = sf::Vector2f();
-
-	if (!defined)
-	{
-		defined = true;
-		//getParentScene()->addEntity(ship);
-		//getParentScene()->addEntity(pilot);
-	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		input.x--;

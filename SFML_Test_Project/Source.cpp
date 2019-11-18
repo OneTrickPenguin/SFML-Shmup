@@ -15,6 +15,8 @@ int main()
 	// Entity list, storing references to all the game objects. It needs to store references, when it was storing Entities, polymorphism was lost
 	std::vector<Entity *> entities;
 	sf::Clock deltaTimeClock;
+	const float draw_interval = 1.0f / 60.0f;
+	float draw_timer = 0;
 
 	{
 		std::ifstream fin;
@@ -121,20 +123,26 @@ int main()
 		// Collided() loop - check collisions between all entities
 		gameScene.checkCollision();
 
-		// Clear window first, otherwise the last frame won't be removed from the window
-		game_render.clear();
-		window.clear();
+		draw_timer += deltaTime;
+		if (draw_timer >= draw_interval)
+		{
+			draw_timer -= draw_interval;
 
-		// draw() loop - draw all entities
-		// It's safe to assume we won't be creating or destroying anything in draw(), so we can store the size to avoid calculating it every iteration
-		//gameScene.draw(window);
-		gameScene.draw(game_render);
-		game_render.display();
-		window.draw(game_sprite);
-		debugText.setString("Approx FPS: " + std::to_string(1/deltaTime) + "\nEntity count: " + std::to_string(gameScene.entityCount()));
-		window.draw(debugText);
-		// Actually display what's been drawn
-		window.display();
+			// Clear window first, otherwise the last frame won't be removed from the window
+			game_render.clear();
+			window.clear();
+
+			// draw() loop - draw all entities
+			// It's safe to assume we won't be creating or destroying anything in draw(), so we can store the size to avoid calculating it every iteration
+			//gameScene.draw(window);
+			gameScene.draw(game_render);
+			game_render.display();
+			window.draw(game_sprite);
+			debugText.setString("Approx FPS: " + std::to_string(1 / deltaTime) + "\nEntity count: " + std::to_string(gameScene.entityCount()));
+			window.draw(debugText);
+			// Actually display what's been drawn
+			window.display();
+		}
 	}
 
 	window.close();
