@@ -2,7 +2,7 @@
 #include "Ship.h"
 #include "Bullet.h"
 
-Ship::Ship(const float x, const float y, Player* p) : Entity(x, y), player(p)
+Ship::Ship(const float x, const float y, Player* p, Scene* s) : Entity(x, y, s), player(p)
 {
 	bbox_origin = sf::Vector2f(64.0f, 22.0f);
 	setBBoxSize(128.0f, 48.0f);

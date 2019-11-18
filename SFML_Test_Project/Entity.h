@@ -7,7 +7,7 @@ private:
 	sf::Vector2f pos;
 	sf::Rect<float> bbox;
 	bool alive = true;
-	Scene* parentScene;
+	Scene* parentScene = nullptr;
 	static sf::Texture texture_page;
 protected:
 	const sf::Vector2f screen_bounds = sf::Vector2f(1920.0f, 1080.0f);
@@ -35,7 +35,7 @@ public:
 		bullet
 	};
 
-	Entity(const float x, const float y);
+	Entity(const float x, const float y, Scene* scene = nullptr);
 	Entity(const float x, const float y, const int anim_speed, const int anim_frames, const bool anim_repeat = true);
 
 	bool isAlive() const;

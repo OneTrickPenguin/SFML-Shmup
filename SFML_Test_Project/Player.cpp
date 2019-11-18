@@ -4,7 +4,7 @@
 //#include "Pilot.h"
 #include "Bullet.h"
 
-Player::Player(const float x, const float y) : Entity(x, y), ship(new Ship(x, y, this)), pilot(new Pilot(x, y, this))
+Player::Player(const float x, const float y, Scene* s) : Entity(x, y, s), ship(new Ship(x, y, this, s)), pilot(new Pilot(x, y, this, s))
 {
 	canCollide = false;
 	isVisible = false;
@@ -30,8 +30,8 @@ void Player::update(const float deltaTime)
 	if (!defined)
 	{
 		defined = true;
-		getParentScene()->addEntity(ship);
-		getParentScene()->addEntity(pilot);
+		//getParentScene()->addEntity(ship);
+		//getParentScene()->addEntity(pilot);
 	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))

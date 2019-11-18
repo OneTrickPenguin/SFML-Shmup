@@ -23,7 +23,7 @@ private:
 					  // a: in animation (entering ship)
 	sf::Vector2f input;
 public:
-	Player(const float x, const float y);
+	Player(const float x, const float y, Scene* scene = nullptr);
 	
 	char getState();
 	sf::Vector2f getInput();

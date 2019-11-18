@@ -2,7 +2,7 @@
 #include "Enemy.h"
 
 
-Enemy::Enemy(const float x, const float y) : Entity(x, y)
+Enemy::Enemy(const float x, const float y, Scene* s) : Entity(x, y, s)
 {
 	spr.setTexture(Scene::getTexture(2), true);
 }

@@ -1,7 +1,7 @@
 #include "Pch.h"
 #include "Pilot.h"
 
-Pilot::Pilot(const float x, const float y, Player* p) : Entity(x, y), player(p)
+Pilot::Pilot(const float x, const float y, Player* p, Scene* s) : Entity(x, y, s), player(p)
 {
 	bbox_origin = sf::Vector2f(10.0f, 24.0f);
 	setBBoxSize(20.0f, 48.0f);

@@ -3,12 +3,17 @@
 
 sf::Texture Entity::texture_page;
 
-Entity::Entity(const float x, const float y)
+Entity::Entity(const float x, const float y, Scene* s)
 {
 	bbox.width = 128.0f;
 	bbox.height = 128.0f;
 	bbox_origin = sf::Vector2f();
 	setPosition(x, y);
+
+	if (s != nullptr)
+	{
+		s->addEntity(this);
+	}
 }
 
 Entity::Entity(const float x, const float y, const int anim_speed, const int anim_frames, const bool anim_repeat) : 

@@ -91,11 +91,10 @@ int main()
 
 	// This should also be changed at some point, to load entities from a scene file. later :)
 	Scene gameScene;
-	gameScene.addEntity(new Enemy(300.0f, 300.0f));
-	//gameScene.addEntity(new Ship(600.0f, 300.0f));
-	gameScene.addEntity(new Enemy(900.0f, 300.0f));
-	//gameScene.addEntity(new Pilot(1200, 300.0f));
-	gameScene.addEntity(new Player(600.0f, 600.0f));
+	new Enemy(300.0f, 800.0f, &gameScene);
+	new Enemy(900.0f, 700.0f, &gameScene);
+	new Enemy(1500.0f, 600.0f, &gameScene);
+	new Player(600.0f, 400.0f, &gameScene);
 
 	std::cout << "Running game\n\n";
 

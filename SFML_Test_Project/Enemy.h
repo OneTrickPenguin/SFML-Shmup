@@ -6,7 +6,7 @@ private:
 	const static int layers = (1 << enemy);
 	const static int collides = (1 << wall) | (1 << bullet) | (1 << player);
 public:
-	Enemy(const float x, const float y);
+	Enemy(const float x, const float y, Scene* scene = nullptr);
 
 	void update(const float deltaTime);
 	void collided(Entity& other);

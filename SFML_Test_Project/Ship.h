@@ -25,7 +25,7 @@ private:
 	bool shooting = false;
 	sf::Vector2f facing;
 public:
-	Ship(const float x, const float y, Player* p);
+	Ship(const float x, const float y, Player* p, Scene* scene = nullptr);
 
 	void setVelocity(sf::Vector2f velocity, bool relative = false);
 

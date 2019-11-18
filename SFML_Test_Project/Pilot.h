@@ -25,7 +25,7 @@ private:
 	bool sword_buffering = false;
 	bool down_buffering = false;
 public:
-	Pilot(const float x, const float y, Player* p);
+	Pilot(const float x, const float y, Player* p, Scene* scene = nullptr);
 
 	void setVelocity(sf::Vector2f velocity, bool relative = false);
 
