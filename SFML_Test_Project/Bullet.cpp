@@ -26,7 +26,8 @@ Bullet::Bullet(const float x, const float y, const float lifetime, const float d
 	//spr.setTextureRect(sf::IntRect(64, 64, 16, 10));
 	spr.setTextureRect(sf::IntRect(16, 192, 64, 7));
 
-	setBBoxSize(14.0f, 14.0f);
+	setBBoxSize(64.0f, 12.0f);
+	bbox_origin = sf::Vector2f(8.0f, 7.0f);
 
 	//animation_speed = 18;
 	//animation_total_frames = 6;

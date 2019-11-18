@@ -109,6 +109,14 @@ void Scene::draw(sf::RenderTarget & renderTarget, const sf::RenderStates & rende
 		if (entities[i]->isVisible)
 		{
 			entities[i]->draw(renderTarget);
+
+			sf::Rect<float> r = entities[i]->getBBoxBounds();
+			sf::RectangleShape hbox(sf::Vector2f(r.width, r.height));
+			hbox.setPosition(r.left, r.top);
+			hbox.setFillColor(sf::Color::Transparent);
+			hbox.setOutlineColor(sf::Color::Cyan);
+			hbox.setOutlineThickness(-1.0f);
+			renderTarget.draw(hbox);
 		}
 	}
 }

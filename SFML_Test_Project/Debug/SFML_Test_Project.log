@@ -1,7 +1,2 @@
-﻿  Ship.cpp
-d:\users\tom\documents\university\level5\p4g\sfml-test-project\sfml_test_project\ship.cpp(35): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
+﻿  Bullet.cpp
   SFML_Test_Project.vcxproj -> D:\Users\Tom\Documents\University\Level5\P4G\SFML-Test-Project\Debug\SFML_Test_Project.exe
