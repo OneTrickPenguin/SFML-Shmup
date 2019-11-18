@@ -10,35 +10,22 @@ Ship::Ship(const float x, const float y, Player* p) : Entity(x, y), player(p)
 	//spr.setTexture(Scene::getTexture(0), true);
 	spr.setTextureRect(sf::IntRect(0, 0, 192, 64));
 
-	facing = sf::Vector2f(-1.0f, 0.0f);
+	//facing = sf::Vector2f(-1.0f, 0.0f);
+}
+
+void Ship::setVelocity(sf::Vector2f velocity, bool relative)
+{
+	vel = (float)relative * vel + velocity;
 }
 
 void Ship::update(const float deltaTime)
 {
-	if (player->isInShip())
+	sf::Vector2f input = sf::Vector2f();
+	last_pos = getPosition();
+
+	if (player->getState() == 's')
 	{
-		last_pos = getPosition();
-		sf::Vector2f input = player->getInput();
-
-		movePosition(input * moveSpeed * deltaTime);
-
-		if (getBBoxLeft() < 0)
-		{
-			movePosition(-getBBoxLeft(), 0);
-		}
-		else if (getBBoxRight() > screen_bounds.x)
-		{
-			movePosition(screen_bounds.x - getBBoxRight(), 0);
-		}
-
-		if (getBBoxTop() < 0)
-		{
-			movePosition(0, -getBBoxTop());
-		}
-		else if (getBBoxBottom() > screen_bounds.y)
-		{
-			movePosition(0, screen_bounds.y - getBBoxBottom());
-		}
+		input = player->getInput() * max_speed;
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
@@ -58,6 +45,92 @@ void Ship::update(const float deltaTime)
 		else
 		{
 			shooting = false;
+		}
+	}
+	else if (player->getState() == 'a')
+	{
+		vel.x = max_speed * 1.75f;
+	}
+	else if (getBBoxLeft() > 0)
+	{
+		vel.x = max_speed * -1.75f;
+	}
+	else
+	{
+		isVisible = false;
+	}
+
+	if (vel.x != input.x)
+	{
+		if (vel.x < input.x)
+		{
+			vel.x += acceleration * deltaTime;
+			if (vel.x > input.x)
+			{
+				vel.x = input.x;
+			}
+		}
+		else
+		{
+			vel.x -= acceleration * deltaTime;
+			if (vel.x < input.x)
+			{
+				vel.x = input.x;
+			}
+		}
+	}
+	if (vel.y != input.y)
+	{
+		if (vel.y < input.y)
+		{
+			vel.y += acceleration * deltaTime;
+			if (vel.y > input.y)
+			{
+				vel.y = input.y;
+			}
+		}
+		else
+		{
+			vel.y -= acceleration * deltaTime;
+			if (vel.y < input.y)
+			{
+				vel.y = input.y;
+			}
+		}
+	}
+	movePosition(vel * deltaTime);
+
+	if (getBBoxLeft() < 0)
+	{
+		movePosition(-getBBoxLeft(), 0);
+		if (vel.x < 0)
+		{
+			vel.x = 0;
+		}
+	}
+	else if (getBBoxRight() > screen_bounds.x)
+	{
+		movePosition(screen_bounds.x - getBBoxRight(), 0);
+		if (vel.x > 0)
+		{
+			vel.x = 0;
+		}
+	}
+
+	if (getBBoxTop() < 0)
+	{
+		movePosition(0, -getBBoxTop());
+		if (vel.y < 0)
+		{
+			vel.y = 0;
+		}
+	}
+	else if (getBBoxBottom() > screen_bounds.y)
+	{
+		movePosition(0, screen_bounds.y - getBBoxBottom());
+		if (vel.y > 0)
+		{
+			vel.y = 0;
 		}
 	}
 
@@ -84,7 +157,8 @@ void Ship::collided(Entity & other)
 			if (getBBoxRight() - move_delta.x <= other.getBBoxLeft())
 			{
 				//push_vector.x = -move_delta.x;
-				push_vector.x = other.getBBoxLeft() - getBBoxRight() - 0.01f;
+				push_vector.x = other.getBBoxLeft() - getBBoxRight() - 0.1f;
+				vel.x = 0;
 			}
 		}
 	}
@@ -95,7 +169,8 @@ void Ship::collided(Entity & other)
 			if (getBBoxLeft() - move_delta.x >= other.getBBoxRight())
 			{
 				//push_vector.x = -move_delta.x;
-				push_vector.x = other.getBBoxRight() - getBBoxLeft() + 0.01f;
+				push_vector.x = other.getBBoxRight() - getBBoxLeft() + 0.1f;
+				vel.x = 0;
 			}
 		}
 	}
@@ -107,7 +182,8 @@ void Ship::collided(Entity & other)
 			if (getBBoxBottom() - move_delta.y <= other.getBBoxTop())
 			{
 				//push_vector.y = -move_delta.y;
-				push_vector.y = other.getBBoxTop() - getBBoxBottom() - 0.01f;
+				push_vector.y = other.getBBoxTop() - getBBoxBottom() - 0.1f;
+				vel.y = 0;
 			}
 		}
 	}
@@ -118,7 +194,8 @@ void Ship::collided(Entity & other)
 			if (getBBoxTop() - move_delta.y >= other.getBBoxBottom())
 			{
 				//push_vector.y = -move_delta.y;
-				push_vector.y = other.getBBoxBottom() - getBBoxTop() + 0.01f;
+				push_vector.y = other.getBBoxBottom() - getBBoxTop() + 0.1f;
+				vel.y = 0;
 			}
 		}
 	}

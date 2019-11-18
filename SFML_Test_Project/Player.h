@@ -8,20 +8,24 @@ private:
 	const static int layers = 0;
 	const static int collides = 0;
 
-	const static sf::Keyboard::Key change = sf::Keyboard::Space;
-	const static sf::Keyboard::Key attack = sf::Keyboard::D;
+	const sf::Keyboard::Key change = sf::Keyboard::Space;
+	const sf::Keyboard::Key attack = sf::Keyboard::D;
 
 	Ship* ship;
 	Pilot* pilot;
 	bool defined = false;
 
+	const float call_cooldown = 3.0f;
+	float call_timer = 0.0f;
 	bool change_pressed = false;
-	bool in_ship = true;
+	char state = 's'; // s: in ship,
+					  // p: pilot (out of ship)
+					  // a: in animation (entering ship)
 	sf::Vector2f input;
 public:
 	Player(const float x, const float y);
 	
-	bool isInShip();
+	char getState();
 	sf::Vector2f getInput();
 
 	void update(const float deltaTime);

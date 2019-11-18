@@ -8,11 +8,14 @@ Player::Player(const float x, const float y) : Entity(x, y), ship(new Ship(x, y,
 {
 	canCollide = false;
 	isVisible = false;
+
+	pilot->isVisible = false;
+	pilot->canCollide = false;
 }
 
-bool Player::isInShip()
+char Player::getState()
 {
-	return in_ship;
+	return state;
 }
 
 sf::Vector2f Player::getInput()
@@ -54,13 +57,54 @@ void Player::update(const float deltaTime)
 	{
 		if (!change_pressed)
 		{
-			in_ship = !in_ship;
+			if (state == 's')
+			{	// if in ship, become pilot (eject from ship)
+				state = 'p';
+				call_timer = call_cooldown;
+
+				ship->canCollide = false;
+				ship->setVelocity(sf::Vector2f(-800.0f, 0.0f));
+
+				pilot->isVisible = true;
+				pilot->canCollide = true;
+				pilot->setPosition(ship->getPosition());
+				pilot->setVelocity(sf::Vector2f(400.0f, -400.0f));
+			}
+			else if (state == 'p' && call_timer <= 0)
+			{	// if not in ship, play animation to enter ship
+				state = 'a';
+
+				ship->isVisible = true;
+				sf::Vector2f start_pos = pilot->getPosition();
+				start_pos.x = 0.0f;
+				ship->setPosition(start_pos);
+				ship->setVelocity(sf::Vector2f(600.0f, 0.0f));
+
+				pilot->canCollide = false;
+			}
 		}
 		change_pressed = true;
 	}
 	else
 	{
 		change_pressed = false;
+	}
+
+	if (call_timer > 0)
+	{
+		call_timer -= deltaTime;
+	}
+
+	if (state == 'a')
+	{
+		if (ship->getPosition().x + 64.0f > pilot->getPosition().x)
+		{
+			state = 's';
+
+			ship->canCollide = true;
+
+			pilot->isVisible = false;
+		}
 	}
 }
 

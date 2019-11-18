@@ -13,8 +13,9 @@ private:
 
 	Player* player;
 
+	sf::Vector2f last_pos;
 	sf::Vector2f vel;
-	const float acceleration = 1200;
+	const float acceleration = 500;
 	const float max_speed = 400;
 
 	float sword_timer = 0.0f;
@@ -25,7 +26,9 @@ private:
 	bool down_buffering = false;
 public:
 	Pilot(const float x, const float y, Player* p);
-	
+
+	void setVelocity(sf::Vector2f velocity, bool relative = false);
+
 	void update(const float deltaTime);
 	void collided(Entity& other);
 

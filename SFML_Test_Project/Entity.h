@@ -11,6 +11,8 @@ private:
 	static sf::Texture texture_page;
 protected:
 	const sf::Vector2f screen_bounds = sf::Vector2f(1920.0f, 1080.0f);
+	const float gravity = 300.0f;
+	const float terminal_velocity = 400.0f;
 
 	sf::Sprite spr = sf::Sprite(texture_page);
 	sf::Vector2f bbox_origin;
