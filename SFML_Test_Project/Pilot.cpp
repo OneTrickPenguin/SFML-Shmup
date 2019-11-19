@@ -16,6 +16,25 @@ void Pilot::setVelocity(sf::Vector2f velocity, bool relative)
 	vel = (float)relative * vel + velocity;
 }
 
+void Pilot::swordHit(const int type, const bool last_hit)
+{
+	switch (type)
+	{
+	case 0:
+		vel.x = -120;
+		if (vel.y > 0.0f)
+		{
+			vel.y = 0;
+		}
+		vel.y -= 160.0f;
+		break;
+
+	case 1:
+		vel.y = -200;
+		break;
+	}
+}
+
 void Pilot::update(const float deltaTime)
 {
 	sf::Vector2f input = sf::Vector2f();
@@ -120,12 +139,12 @@ void Pilot::update(const float deltaTime)
 			if (down_buffering)
 			{
 				spr.setTextureRect(sf::IntRect(192 + 158 * sword_side, 88, 158, 106));
-				new Hitbox(getPosition().x - 25, getPosition().y, 48, 90, sword_cooldown[0], getParentScene());
+				new Hitbox(getPosition().x - 25, getPosition().y, 48, 90, sword_cooldown[0], 1, this, getParentScene());
 			}
 			else
 			{
 				spr.setTextureRect(sf::IntRect(192 + 158 * sword_side, 194, 158, 106));
-				new Hitbox(getPosition().x, getPosition().y - 28, 90, 48, sword_cooldown[0], getParentScene());
+				new Hitbox(getPosition().x, getPosition().y - 28, 90, 48, sword_cooldown[0], 0, this, getParentScene());
 			}
 		}
 	}

@@ -8,8 +8,10 @@ private:
 	const static int collides = (1 << wall) | (1 << enemy);
 
 	float life;
+	int type;
+	Pilot* parent;
 public:
-	Hitbox(const float x, const float y, const float width, const float height, const float lifetime, Scene* scene);
+	Hitbox(const float x, const float y, const float width, const float height, const float lifetime, const int type, Pilot* parent, Scene* scene = nullptr);
 
 	void update(const float deltaTime);
 	void collided(Entity& other);

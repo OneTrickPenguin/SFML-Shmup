@@ -28,6 +28,7 @@ public:
 	Pilot(const float x, const float y, Player* p, Scene* scene = nullptr);
 
 	void setVelocity(sf::Vector2f velocity, bool relative = false);
+	void swordHit(const int type, const bool last_hit);
 
 	void update(const float deltaTime);
 	void collided(Entity& other);

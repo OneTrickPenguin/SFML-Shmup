@@ -1,7 +1,7 @@
 #include "Pch.h"
 #include "Hitbox.h"
 
-Hitbox::Hitbox(const float x, const float y, const float w, const float h, const float lifetime, Scene* s) : Entity(x, y, s), life(lifetime)
+Hitbox::Hitbox(const float x, const float y, const float w, const float h, const float lifetime, const int t, Pilot* p, Scene* s) : Entity(x, y, s), life(lifetime), type(t), parent(p)
 {
 	spr.setTextureRect(sf::IntRect(0, 0, 0, 0));
 
@@ -19,7 +19,9 @@ void Hitbox::update(const float deltaTime)
 
 void Hitbox::collided(Entity& other)
 {
-	other.die();
+	parent->swordHit(type, false);
+
+	//other.die();
 	die();
 }
 
