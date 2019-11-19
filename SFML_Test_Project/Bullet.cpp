@@ -46,9 +46,10 @@ void Bullet::update(const float deltaTime)
 	}
 }
 
-void Bullet::collided(Entity & other)
+void Bullet::collided(Entity& other)
 {
-
+	other.die();
+	die();
 }
 
 int Bullet::layersSelf() const

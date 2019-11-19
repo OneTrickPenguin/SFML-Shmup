@@ -1,5 +1,6 @@
 #include "Pch.h"
 #include "Pilot.h"
+#include "Hitbox.h"
 
 Pilot::Pilot(const float x, const float y, Player* p, Scene* s) : Entity(x, y, s), player(p)
 {
@@ -115,14 +116,16 @@ void Pilot::update(const float deltaTime)
 			sword_timer = sword_cooldown[0] + sword_cooldown[1];
 			sword_pressed = true;
 			sword_buffering = false;
-
+			
 			if (down_buffering)
 			{
 				spr.setTextureRect(sf::IntRect(192 + 158 * sword_side, 88, 158, 106));
+				new Hitbox(getPosition().x - 25, getPosition().y, 48, 90, sword_cooldown[0], getParentScene());
 			}
 			else
 			{
 				spr.setTextureRect(sf::IntRect(192 + 158 * sword_side, 194, 158, 106));
+				new Hitbox(getPosition().x, getPosition().y - 28, 90, 48, sword_cooldown[0], getParentScene());
 			}
 		}
 	}
