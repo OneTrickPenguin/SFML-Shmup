@@ -1,2 +1,5 @@
-﻿  Pilot.cpp
+﻿  Enemy.cpp
+c:\users\b8000752\desktop\sfml-shmup\sfml_test_project\enemy.cpp(20): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
+c:\users\b8000752\desktop\sfml-shmup\sfml_test_project\enemy.cpp(29): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
+c:\users\b8000752\desktop\sfml-shmup\sfml_test_project\enemy.cpp(54): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
   SFML_Test_Project.vcxproj -> C:\Users\b8000752\Desktop\SFML-Shmup\Debug\SFML_Test_Project.exe

@@ -48,7 +48,12 @@ void Bullet::update(const float deltaTime)
 
 void Bullet::collided(Entity& other)
 {
-	other.die();
+	Enemy* enemy_ptr = dynamic_cast<Enemy*>(&other);
+	if (enemy_ptr)
+	{
+		enemy_ptr->hit(2);
+	}
+
 	die();
 }
 

@@ -21,7 +21,12 @@ void Hitbox::collided(Entity& other)
 {
 	parent->swordHit(type, false);
 
-	//other.die();
+	Enemy* enemy_ptr = dynamic_cast<Enemy*>(&other);
+	if (enemy_ptr)
+	{
+		enemy_ptr->hit(3);
+	}
+	
 	die();
 }
 
