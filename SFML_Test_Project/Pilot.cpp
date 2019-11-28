@@ -38,11 +38,13 @@ void Pilot::swordHit(const int type, const bool last_hit)
 void Pilot::update(const float deltaTime)
 {
 	sf::Vector2f input = sf::Vector2f();
+	sf::Vector2f target_vel = sf::Vector2f();
 	last_pos = getPosition();
 
 	if (player->getState() == 'p')
 	{
-		input = player->getInput() * max_speed;
+		input = player->getInputAxes();
+		target_vel = input * max_speed;
 
 		vel.y += gravity * deltaTime;
 		if (vel.y > terminal_velocity)
@@ -50,19 +52,12 @@ void Pilot::update(const float deltaTime)
 			vel.y = terminal_velocity;
 		}
 
-		if (sword_pressed)
+		if (!sword_buffering)
 		{
-			if (!sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			{
-				sword_pressed = false;
-			}
-		}
-		else if (!sword_buffering)
-		{
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			if (player->getInputButtonsPressed() & (1 << 1))
 			{
 				sword_buffering = true;
-				down_buffering = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+				down_buffering = (input.y > 0.5f);
 			}
 		}
 	}
@@ -71,22 +66,22 @@ void Pilot::update(const float deltaTime)
 		vel.y = 0;
 	}
 
-	if (vel.x != input.x)
+	if (vel.x != target_vel.x)
 	{
-		if (vel.x < input.x)
+		if (vel.x < target_vel.x)
 		{
 			vel.x += acceleration * deltaTime;
-			if (vel.x > input.x)
+			if (vel.x > target_vel.x)
 			{
-				vel.x = input.x;
+				vel.x = target_vel.x;
 			}
 		}
 		else
 		{
 			vel.x -= acceleration * deltaTime;
-			if (vel.x < input.x)
+			if (vel.x < target_vel.x)
 			{
-				vel.x = input.x;
+				vel.x = target_vel.x;
 			}
 		}
 	}
@@ -133,7 +128,6 @@ void Pilot::update(const float deltaTime)
 		{
 			sword_side = !sword_side;
 			sword_timer = sword_cooldown[0] + sword_cooldown[1];
-			sword_pressed = true;
 			sword_buffering = false;
 			
 			if (down_buffering)

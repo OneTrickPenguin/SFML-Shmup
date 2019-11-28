@@ -25,26 +25,18 @@ void Ship::update(const float deltaTime)
 
 	if (player->getState() == 's')
 	{
-		input = player->getInput() * max_speed;
+		input = player->getInputAxes() * max_speed;
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		if (player->getInputButtonsPressed() & (1 << 0))
 		{
-			if (!shooting)
-			{
-				sf::Vector2f bulletVel = sf::Vector2f(bulletSpeed, input.y / 5.0f);
-				sf::Vector2f p = getPosition() + sf::Vector2f(10 + last_used_cannon * 45, 12); //(10 or 55, 12)
-				spr.setTextureRect(sf::IntRect(0, 64 + 64 * last_used_cannon, 192, 64));
-				last_used_cannon = !last_used_cannon;
+			sf::Vector2f bulletVel = sf::Vector2f(bulletSpeed, input.y / 5.0f);
+			sf::Vector2f p = getPosition() + sf::Vector2f(10 + last_used_cannon * 45, 12); //(10 or 55, 12)
+			spr.setTextureRect(sf::IntRect(0, 64 + 64 * last_used_cannon, 192, 64));
+			last_used_cannon = !last_used_cannon;
 
-				cannon_flash_timer = cannon_flash_cooldown;
+			cannon_flash_timer = cannon_flash_cooldown;
 
-				getParentScene()->addEntity(new Bullet(p.x, p.y, 1.5f, bulletVel.x, bulletVel.y));
-			}
-			shooting = true;
-		}
-		else
-		{
-			shooting = false;
+			getParentScene()->addEntity(new Bullet(p.x, p.y, 1.5f, bulletVel.x, bulletVel.y));
 		}
 	}
 	else if (player->getState() == 'a')

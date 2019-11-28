@@ -18,69 +18,93 @@ char Player::getState()
 	return state;
 }
 
-sf::Vector2f Player::getInput()
+sf::Vector2f Player::getInputAxes()
 {
-	return input;
+	return input_axes;
+}
+
+char Player::getInputButtons()
+{
+	return input_buttons;
+}
+
+char Player::getInputButtonsPressed()
+{
+	return (input_buttons & ~prev_buttons);
+	// prev_buttons	 | 0  0  1  1 |
+	// input_buttons | 0  1  0  1 |
+	// ~prev_buttons | 1  1  0  0 |
+	// return		 | 0  1  0  0 |
+}
+
+char Player::getInputButtonsReleased()
+{
+	return (~input_buttons & prev_buttons);
+	// prev_buttons	  | 0  0  1  1 |
+	// input_buttons  | 0  1  0  1 |
+	// ~input_buttons | 1  0  1  0 |
+	// return		  | 0  0  1  0 |
 }
 
 void Player::update(const float deltaTime)
 {
-	input = sf::Vector2f();
+	prev_buttons = input_buttons;
+	input_buttons = (sf::Keyboard::isKeyPressed(key_attack_l) << 0)
+				  | (sf::Keyboard::isKeyPressed(key_attack_h) << 1)
+				  | (sf::Keyboard::isKeyPressed(key_dash) << 4)
+				  | (sf::Keyboard::isKeyPressed(key_change) << 7);
+	input_axes = sf::Vector2f();
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		input.x--;
+		input_axes.x--;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		input.x++;
+		input_axes.x++;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		input.y--;
+		input_axes.y--;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		input.y++;
+		input_axes.y++;
 	
-	float hyp = sqrt(input.x * input.x + input.y * input.y);
+	float hyp = sqrt(input_axes.x * input_axes.x + input_axes.y * input_axes.y);
 	if (hyp != 0)
 	{
 		if (hyp > 1)
 		{
-			input.x /= hyp;
-			input.y /= hyp;
+			input_axes.x /= hyp;
+			input_axes.y /= hyp;
 		}
 	}
 
-	if (sf::Keyboard::isKeyPressed(change))
+	if (getInputButtonsPressed() & (1 << 7))
 	{
-		if (!change_pressed)
-		{
-			if (state == 's')
-			{	// if in ship, become pilot (eject from ship)
-				state = 'p';
-				call_timer = call_cooldown;
+		if (state == 's')
+		{	// if in ship, become pilot (eject from ship)
+			state = 'p';
+			call_timer = call_cooldown;
 
-				ship->canCollide = false;
-				ship->setVelocity(sf::Vector2f(-800.0f, 0.0f));
+			ship->canCollide = false;
+			ship->setVelocity(sf::Vector2f(-800.0f, 0.0f));
 
-				pilot->isVisible = true;
-				pilot->canCollide = true;
-				pilot->setPosition(ship->getPosition());
-				pilot->setVelocity(sf::Vector2f(400.0f, -400.0f));
-			}
-			else if (state == 'p' && call_timer <= 0)
-			{	// if not in ship, play animation to enter ship
-				state = 'a';
-
-				ship->isVisible = true;
-				sf::Vector2f start_pos = pilot->getPosition();
-				start_pos.x = 0.0f;
-				ship->setPosition(start_pos);
-				ship->setVelocity(sf::Vector2f(600.0f, 0.0f));
-
-				pilot->canCollide = false;
-			}
+			pilot->isVisible = true;
+			pilot->canCollide = true;
+			pilot->setPosition(ship->getPosition());
+			pilot->setVelocity(sf::Vector2f(400.0f, -400.0f));
 		}
-		change_pressed = true;
+		else if (state == 'p' && call_timer <= 0)
+		{	// if not in ship, play animation to enter ship
+			state = 'a';
+
+			ship->isVisible = true;
+			sf::Vector2f start_pos = pilot->getPosition();
+			start_pos.x = 0.0f;
+			ship->setPosition(start_pos);
+			ship->setVelocity(sf::Vector2f(600.0f, 0.0f));
+
+			pilot->canCollide = false;
+		}
 	}
 	else
 	{
-		change_pressed = false;
+		
 	}
 
 	if (call_timer > 0)
